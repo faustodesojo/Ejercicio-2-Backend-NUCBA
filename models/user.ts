@@ -1,14 +1,12 @@
 import { Model, Schema, model, ObjectId } from "mongoose";
 
-
 export interface IUser {
     username: string;
     email: string;
     password: string;
     estado: boolean;
-    expenses: ObjectId;
-
-  }
+    expenses: ObjectId[];
+}
 
 const UserSchema = new Schema<IUser>({
     username: {
@@ -28,14 +26,14 @@ const UserSchema = new Schema<IUser>({
         required: true,
         default: true
     },
-    expenses: {
+    expenses: [{
         type: Schema.Types.ObjectId,
         ref: "Expense",
         required: true
-    }
-
-})
+    }]
+});
 
 const User: Model<IUser> = model<IUser>("User", UserSchema);
 
 export default User;
+ 
